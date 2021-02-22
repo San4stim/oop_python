@@ -2,20 +2,19 @@ import settings as settings
 from exceptions import GameOver, EnemyDown, InvalidLiteral
 from models import Player, Enemy, Scores
 
-# import names
-names = ''
-
 
 def play():
     level = 1
     player_name = input('Enter your name Player! \n')
-    print("Welcome to The Hunger Games. And may luck always be on your side! {player_name}\n")
+    print(f"Welcome to The Hunger Games. And may luck always be on your side! {player_name}\n")
     player = Player(player_name)
-    enemy_name = 'Vasya'  # names.get_first_name(gender='male')
+    enemy_name = 'Enemy monster'
     enemy = Enemy(enemy_name, level)
 
     while True:
-        command = input(f"{player_name}, Please enter \"START\" to start the game\n").lower()
+        command = input(
+            f"{player_name}, Please enter \"START\" to start the game\n"
+            f"or enter \"HELP\" to enter setup\n")  # .lower()
 
         if command == "start":
             print(f'Your enemy name is {enemy_name}!')
@@ -47,15 +46,15 @@ def play():
                 except InvalidLiteral:
                     print('\nONLY 3 classes of fighters!!! 1-2-3\n')
 
-        if command == "show scores":
+        elif command == "help":
+            settings.show_commands()
+
+        elif command == "show scores":
             print('\n')
             Scores.show_score()
             print('\n')
 
-        # if command == "help":
-        #     print(f'\nAllowed commands: {", ".join(settings.ALLOWED_COMMANDS)}.\n')
-
-        if command == "exit":
+        elif command == "exit":
             raise KeyboardInterrupt
 
 
